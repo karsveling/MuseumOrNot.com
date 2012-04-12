@@ -1,6 +1,7 @@
 package models;
 
-import java.util.Random
+import java.util.Iterator;
+import java.util.Random;
 
 import play.modules.siena.EnhancedModel;
 import siena.Id;
@@ -9,6 +10,10 @@ import siena.Query;
 public class ArtObject extends EnhancedModel
 {
 
+  public static String TOTAL_MUSEUM_OBJECTS = "total_museum_objects";
+  public static String TOTAL_NON_MUSEUM_OBJECTS = "total_non_museum_objects";
+  
+  
   @Id
   public Long id;
   
@@ -19,7 +24,7 @@ public class ArtObject extends EnhancedModel
   public int width;
   public int height;
   
-  public float random_key;
+  public double random_key;
 
   boolean portrait;
   
@@ -40,18 +45,48 @@ public class ArtObject extends EnhancedModel
     this.width = width;
     this.height = height;
     this.portrait = width<=height;
-    this.random_key = Math.random()
+    this.random_key = Math.random();
   }
 
+  
+  
   public static ArtObject getRandomObject(boolean in_a_museum) {
-    int offset = (int)Math.floor(Math.random() * 1000);
+    long max = Settings.getLongValue(in_a_museum?ArtObject.TOTAL_MUSEUM_OBJECTS:ArtObject.TOTAL_NON_MUSEUM_OBJECTS);
     
-    in_a_museum = true; // temp hack to get objects
-    // TODO get better random object
+    int index = (int)Math.floor(Math.random() * max);
     
-    Query<ArtObject> results = ArtObject.all(ArtObject.class).filter("in_a_museum", in_a_museum).offset(offset).limit(1);
+    ArtObject obj = null;
     
-    return results.get();
+    while (obj==null)
+    {
+      double randomSplit = Math.random();
+      in_a_museum = true; // temp hack to get objects
+      // TODO get better random object
+      
+      Query<ArtObject> results = ArtObject.all(ArtObject.class).filter("in_a_museum", in_a_museum).filter("random >=",randomSplit).limit(1);
+      
+      obj = results.get();
+      
+      // retry for the very rare case we found a too high random number :)
+    }
+    return obj;
+  }
+  
+  public static void countAllObjects()
+  {
+    Query<ArtObject> q = ArtObject.all(ArtObject.class);
+    
+    long museum = 0, non_museum=0;
+    Iterator<ArtObject> iter = q.iter().iterator();
+    while (iter.hasNext())
+    {
+      ArtObject obj = iter.next();
+      if (obj.in_a_museum) museum++; else non_museum++;
+    }
+    
+    Settings.put(TOTAL_MUSEUM_OBJECTS, museum);
+    Settings.put(TOTAL_NON_MUSEUM_OBJECTS, non_museum);
+    
   }
 
-}}
+}

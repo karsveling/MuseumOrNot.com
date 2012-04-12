@@ -66,21 +66,21 @@ body {
 }
 
 .objects-container {
-  width:800px;
+  width:2000px;
 }
 
 .artobject {
   float:left;
   display:inline;
-  width:400px;
-  height:400px;
+  xwidth:400px;
+  xheight:400px;
   border:solid 2px #B0B0B0;
 }
 
-.number-1 {
-  ;
+.number-1 img {
+  height:400px;
 }
 
-.number-2 {
-  ;
+.number-2 img {
+  height:400px;
 }
