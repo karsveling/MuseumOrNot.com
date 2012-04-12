@@ -1,7 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-<a href="${googleLoginUrl}">Login with Google....</a>
+<a href="${googleLoginUrl}">GET STARTED! Login with Google....</a>
 
-
-logged in user: ${user?.fullname}
+#{if googleLoginUrl}
+  <a href="/play">GET STARTED ${user.fullname}!</a>
+#{/if}

@@ -1,0 +1,9 @@
+<datastore-indexes autoGenerate="false">
+
+   <datastore-index kind="ArtObject" ancestor="false">
+        <property name="in_a_museum" direction="asc" />
+        <property name="random_key" direction="asc" />
+    </datastore-index>
+
+</datastore-indexes>
+

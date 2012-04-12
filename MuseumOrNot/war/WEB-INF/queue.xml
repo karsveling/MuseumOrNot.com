@@ -1,0 +1,11 @@
+<queue-entries>
+    <!--Change the refresh rate of the default queue to 1/s-->
+   
+  <queue>
+    <name>default</name>
+    <rate>25/s</rate>
+  </queue>
+  
+  
+  
+</queue-entries> 

@@ -16,12 +16,7 @@ public class AuthenticatedBaseController extends Controller {
 
 	static boolean requireValidUser = true; // set to false (static!) if you don't require logged in users
 	
-	@Before
-	public static void makeSureTestDataIsFilled()
-	{
-		
-	}
-	
+
 	@Before
 	public static void validateUserAndOptionalProjectname(String projectname) {
 		User user = null;

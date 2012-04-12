@@ -48,7 +48,6 @@ public class ArtObject extends EnhancedModel
     this.in_a_museum = in_a_museum;
     this.width = width;
     this.height = height;
-    this.portrait = width<=height;
     this.random_key = Math.random();
   }
 
@@ -58,12 +57,14 @@ public class ArtObject extends EnhancedModel
   public void makeSureRandomFieldIsFilled()
   {
     if (this.random_key==0) this.random_key = Math.random();
+    
+    this.portrait = width<=height;
+    
   }
   
   public static ArtObject getRandomObject(boolean in_a_museum) {
-    long max = Settings.getLongValue(in_a_museum?ArtObject.TOTAL_MUSEUM_OBJECTS:ArtObject.TOTAL_NON_MUSEUM_OBJECTS);
+  //  double max = Settings.getLongValue(in_a_museum?ArtObject.TOTAL_MUSEUM_OBJECTS:ArtObject.TOTAL_NON_MUSEUM_OBJECTS);
     
-    int index = (int)Math.floor(Math.random() * max);
     
     ArtObject obj = null;
     
@@ -73,7 +74,7 @@ public class ArtObject extends EnhancedModel
       in_a_museum = true; // temp hack to get objects
       // TODO get better random object
       
-      Query<ArtObject> results = ArtObject.all(ArtObject.class).filter("in_a_museum", in_a_museum).filter("random >=",randomSplit).limit(1);
+      Query<ArtObject> results = ArtObject.all(ArtObject.class).filter("in_a_museum =", in_a_museum).filter("random_key >",randomSplit).limit(1);
       
       obj = results.get();
       
