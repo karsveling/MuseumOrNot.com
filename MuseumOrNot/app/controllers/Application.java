@@ -63,6 +63,8 @@ public class Application extends AuthenticatedBaseController {
     
     public static void touchAllObjects(int start)
     {
+      Logger.info("touching... " + start);
+      
       int batchSize = 100;
       
       Query<ArtObject>q = ArtObject.all(ArtObject.class).offset(start).limit(batchSize);
@@ -81,11 +83,13 @@ public class Application extends AuthenticatedBaseController {
         if (obj.random_key==0) obj.save();
       }
       
-      renderHtml("ready with this batch. offset was " + start);
+      start += batchSize;
       
-      TaskOptions task = TaskOptions.Builder.withUrl("/application/touchallobjects").param("start", ""+start + batchSize);
+      TaskOptions task = TaskOptions.Builder.withUrl("/Application/touchAllObjects").param("start",start+"");
       
       com.google.appengine.api.taskqueue.QueueFactory.getDefaultQueue().add(task);
+      
+      renderHtml("ready with this batch. offset was " + start);
       
       
       
