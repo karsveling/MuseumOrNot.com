@@ -48,6 +48,7 @@ public class Api extends AuthenticatedBaseController {
         correct=false;
         message = "Ohnoes! It's not! (yet)";
       }
+      user.save();
       
       renderJSON("{\"result\":" + correct+", \"message\":\"" + message + "\", \"score\":\""+user.score+"\"}");
         

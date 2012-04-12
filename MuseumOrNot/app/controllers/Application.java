@@ -64,6 +64,9 @@ public class Application extends AuthenticatedBaseController {
         obj.id=2L;
         obj.save();
         
+        obj = new ArtObject("Test obj 3", "descr 3", null, "http://images.powerhousemuseum.com/images/zoomify/TLF_mediums/127093.jpg", 260, 260, false, "Powerhouse");
+        obj.id=3L;
+        obj.save();
         
         
       }
