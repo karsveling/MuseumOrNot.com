@@ -14,6 +14,7 @@ import models.*;
 
 public class Application extends AuthenticatedBaseController {
 
+    
     public static void index() {
       
       com.google.appengine.api.users.UserService us = UserServiceFactory.getUserService();
@@ -21,11 +22,18 @@ public class Application extends AuthenticatedBaseController {
       
       User currentUser = getCurrentUser();
       
+      if (currentUser!=null) redirect("/play");
+      
         render(googleLoginUrl);
     }
     
     public static void play()
     {
+      if (getCurrentUser()==null)
+      {
+        redirect("/");
+      }
+      
       makeSureTestDataIsThere();
       makeSureTotalCountsAreDone();
        
@@ -60,40 +68,7 @@ public class Application extends AuthenticatedBaseController {
         
       }
     }
-    
-    public static void touchAllObjects(int start)
-    {
-      Logger.info("touching... " + start);
-      
-      int batchSize = 100;
-      
-      Query<ArtObject>q = ArtObject.all(ArtObject.class).offset(start).limit(batchSize);
-      
-      Iterator<ArtObject> iter = q.iter().iterator();
-      
-      if (!iter.hasNext())
-      {
-        Logger.info("ready. offset was " + start);
-        renderHtml("ready!");
-      }
-      
-      while (iter.hasNext())
-      {
-        ArtObject obj = iter.next();
-        if (obj.random_key==0) obj.save();
-      }
-      
-      start += batchSize;
-      
-      TaskOptions task = TaskOptions.Builder.withUrl("/Application/touchAllObjects").param("start",start+"");
-      
-      com.google.appengine.api.taskqueue.QueueFactory.getDefaultQueue().add(task);
-      
-      renderHtml("ready with this batch. offset was " + start);
-      
-      
-      
-    }
+   
     
     private static void makeSureTotalCountsAreDone()
     {

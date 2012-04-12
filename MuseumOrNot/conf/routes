@@ -3,8 +3,8 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
-GET     /play                                   Application.play
+*       /                                       Application.index
+*       /play                                   Application.play
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

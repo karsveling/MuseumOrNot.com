@@ -1,8 +1,12 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
-<a href="${googleLoginUrl}">GET STARTED! Login with Google....</a>
-
-#{if googleLoginUrl}
-  <a href="/play">GET STARTED ${user.fullname}!</a>
-#{/if}
+<div class="homescreen">
+  #{if !user}
+    <a class="btn-auth btn-google large" href="${googleLoginUrl}" style="position:absolute; margin-left:-110px; left:50%; top:20px;">Sign in with <b>Google</b></a>
+  #{/if}
+  
+  #{if user}
+    <a href="/play">GET STARTED ${user.fullname}!</a>
+  #{/if}
+</div>

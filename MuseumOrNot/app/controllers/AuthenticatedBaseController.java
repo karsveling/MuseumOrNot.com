@@ -14,7 +14,6 @@ import models.*;
 
 public class AuthenticatedBaseController extends Controller {
 
-	static boolean requireValidUser = true; // set to false (static!) if you don't require logged in users
 	
 
 	@Before
@@ -23,27 +22,25 @@ public class AuthenticatedBaseController extends Controller {
 		Cookie cookie = request.cookies.get("access_token");
 
 		long user_id = Helper.parse(session.get("user_id"), -1);
-		if (user_id < 1)
-			Account.signin(null, null);
-
-		user = UserService.getById(user_id);
-		if (user == null && cookie != null) {
-			String access_token = URLDecoder.decode(cookie.value);
-
-			// we have an access token. Nice. Let's try to authenticate that.
-			user = UserService.authenticateByAccessToken(access_token);
-		}
-
-		// still nothing?
-		if (requireValidUser)
+		if (user_id > 0)
 		{
-			if (user == null) Account.signin(null, null);
-			renderArgs.put("user", user);
+  		user = UserService.getById(user_id);
+  		if (user == null && cookie != null) {
+  			String access_token = URLDecoder.decode(cookie.value);
+  
+  			// we have an access token. Nice. Let's try to authenticate that.
+  			user = UserService.authenticateByAccessToken(access_token);
+  		}
+  		
+  		if (user!=null) renderArgs.put("user", user);
+  
+  		// still nothing?
+  		//	if (user == null) Account.signin(null, null);
+     	//		renderArgs.put("user", user);
 		}
-		
-		Logger.info("User " + user.id + " (" + user.email + "): " + request.path + "?" + request.querystring);
-		
-			
+		if (user!=null) Logger.info("User " + user.id + " (" + user.email + "): " + request.path + "?" + request.querystring);
+		else Logger.info("anonymous hit on " + request.url );
+  		
 	}
 
 	public static User getCurrentUser() {
