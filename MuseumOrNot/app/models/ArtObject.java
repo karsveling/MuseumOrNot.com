@@ -4,8 +4,12 @@ import java.util.Iterator;
 import java.util.Random;
 
 import play.modules.siena.EnhancedModel;
+import play.mvc.Before;
 import siena.Id;
 import siena.Query;
+import siena.core.lifecycle.PreInsert;
+import siena.core.lifecycle.PreSave;
+import siena.core.lifecycle.PreUpdate;
 
 public class ArtObject extends EnhancedModel
 {
@@ -48,7 +52,13 @@ public class ArtObject extends EnhancedModel
     this.random_key = Math.random();
   }
 
-  
+  @PreInsert
+  @PreSave
+  @PreUpdate
+  public void makeSureRandomFieldIsFilled()
+  {
+    if (this.random_key==0) this.random_key = Math.random();
+  }
   
   public static ArtObject getRandomObject(boolean in_a_museum) {
     long max = Settings.getLongValue(in_a_museum?ArtObject.TOTAL_MUSEUM_OBJECTS:ArtObject.TOTAL_NON_MUSEUM_OBJECTS);
