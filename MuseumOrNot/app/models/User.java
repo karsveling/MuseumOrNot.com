@@ -92,6 +92,7 @@ public class User extends EnhancedModel {
 	public int reputation;
 	public int score;
 	
+	public int num_tries;
 	public int num_good;
 	public int num_wrong;
 	
@@ -299,6 +300,22 @@ public class User extends EnhancedModel {
     case 101: return "Museum Director";
     default: return "In-between-jobs";
     }
+  }
+
+  public void processCorrect() {
+    score = score + 2;
+    num_good = num_good + 1;
+    num_tries = num_tries + 1;
+    
+    //TODO: upgrade reputation when thresholds are met..!
+  }
+  
+  public void processWrong() {
+    score = Math.max(0, score - 1);
+    num_wrong = num_wrong + 1;
+    num_tries = num_tries + 1;
+    
+    
   }
 
 }

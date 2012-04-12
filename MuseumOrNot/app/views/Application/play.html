@@ -6,10 +6,13 @@
 <div class="main-area">
   <div class="objects-container" style="width:${artobject1.width + artobject2.width + 10}">
     <div class="artobject number-1">
-      <img src="${artobject1?.image_url}"  />
+      <img src="${artobject1?.image_url}"  /><br/>
+      
+      <button onclick="voteFor(${actobject1?.id})">This should be in a Museum!</button>
     </div>
     <div class="artobject number-2">
-      <img src="${artobject2?.image_url}"/>
+      <img src="${artobject2?.image_url}"/><br/>
+         <button voteFor(${actobject2?.id})>This should be in a Museum!</button>
     </div>
   </div>
 </div>

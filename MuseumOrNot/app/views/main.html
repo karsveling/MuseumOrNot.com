@@ -11,6 +11,17 @@
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         #{get 'moreScripts' /}
+        
+        <script>
+        function voteFor(object_id)
+        {
+        	$('main-area').addClass('loading');
+        	result = $.ajax('/api/vote?object_id=' + object_id);
+        	
+        	alert(result);
+        	alert(result.responseText);
+        }
+        </script>
     </head>
     <body>
         #{doLayout /}

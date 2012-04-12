@@ -42,8 +42,8 @@ public class Application extends AuthenticatedBaseController {
       boolean sw =  Math.random() >= 0.5;
       
       ArtObject artobject1 = ArtObject.getRandomObject(sw);
-      ArtObject artobject2 = ArtObject.getRandomObject(sw);
-      
+      ArtObject artobject2 = ArtObject.getRandomObject(!sw);
+   
       Logger.info("Done:" + artobject1.id + ":"+ artobject1.image_url + ":" + artobject2.id + ":" + artobject2.image_url);
       
       // get two random objects from database

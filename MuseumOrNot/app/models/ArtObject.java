@@ -30,9 +30,9 @@ public class ArtObject extends EnhancedModel
   
   public double random_key;
 
-  boolean portrait;
+  public boolean portrait;
   
-  boolean in_a_museum;
+  public boolean in_a_museum;
   
   public String image_url;
   
@@ -71,7 +71,7 @@ public class ArtObject extends EnhancedModel
     while (obj==null)
     {
       double randomSplit = Math.random();
-      in_a_museum = true; // temp hack to get objects
+      //in_a_museum = true; // temp hack to get objects
       // TODO get better random object
       
       Query<ArtObject> results = ArtObject.all(ArtObject.class).filter("in_a_museum =", in_a_museum).filter("random_key >",randomSplit).limit(1);
