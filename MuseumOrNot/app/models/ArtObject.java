@@ -2,6 +2,7 @@ package models;
 
 import play.modules.siena.EnhancedModel;
 import siena.Id;
+import siena.Query;
 
 public class ArtObject extends EnhancedModel
 {
@@ -35,6 +36,17 @@ public class ArtObject extends EnhancedModel
     this.width = width;
     this.height = height;
     this.portrait = width<=height;
+  }
+
+  public static ArtObject getRandomObject(boolean in_a_museum) {
+    int offset = (int)Math.floor(Math.random() * 1000);
+    
+    in_a_museum = true; // temp hack to get objects
+    // TODO get better random object
+    
+    Query<ArtObject> results = ArtObject.all(ArtObject.class).filter("in_a_museum", in_a_museum).offset(offset).limit(1);
+    
+    return results.get();
   }
 
 }

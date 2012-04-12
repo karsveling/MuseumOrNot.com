@@ -89,6 +89,12 @@ public class User extends EnhancedModel {
 	
 	// 
 	
+	public int reputation;
+	public int score;
+	
+	public int num_good;
+	public int num_wrong;
+	
 	
 	
 
@@ -283,5 +289,16 @@ public class User extends EnhancedModel {
    return false;
   }
 
+  public String getReputationLabel()
+  {
+    switch (reputation)
+    {
+    case 0: return "Intern";
+    
+    case 100: return "Demi God Curator";
+    case 101: return "Museum Director";
+    default: return "In-between-jobs";
+    }
+  }
 
 }
