@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Random
+
 import play.modules.siena.EnhancedModel;
 import siena.Id;
 import siena.Query;
@@ -17,6 +19,8 @@ public class ArtObject extends EnhancedModel
   public int width;
   public int height;
   
+  public float random_key;
+
   boolean portrait;
   
   boolean in_a_museum;
@@ -36,6 +40,7 @@ public class ArtObject extends EnhancedModel
     this.width = width;
     this.height = height;
     this.portrait = width<=height;
+    this.random_key = Math.random()
   }
 
   public static ArtObject getRandomObject(boolean in_a_museum) {
@@ -49,4 +54,4 @@ public class ArtObject extends EnhancedModel
     return results.get();
   }
 
-}
+}}
