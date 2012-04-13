@@ -1,0 +1,22 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+#{topbar user:user /}
+
+<div class="content-area voted">
+
+  <div class="main-area">
+    <img src="/public/images/icon-${result}.png" class="rightwrong-icon"/>
+    <div class="result-message">${message.raw()}</div>
+    
+    <button class="next-button" onclick="window.location='/play'">Next challenge</button>
+    
+    <div class="explanation">
+      ${explanation.raw()}
+    </div>
+    
+    <div class="result-image">
+      <img src="${obj.image_url}" />
+    </div>
+  </div>
+  
+</div>

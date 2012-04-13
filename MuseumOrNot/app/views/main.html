@@ -4,47 +4,99 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta charset="${_response_encoding}">
-        <meta name="viewport" content="width=device-width; initial-scale=0.5; maximum-scale=0.5; user-scalable=0;" />
+        <meta name="viewport" content="width=device-width  height=840; initial-scale=0.5; maximum-scale=0.5; user-scalable=0;" />
+        
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/auth-buttons.css'}">
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        
+        <link href='http://fonts.googleapis.com/css?family=Averia+Gruesa+Libre' rel='stylesheet' type='text/css'>
+        
         <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <!-- <script src="@{'/public/javascripts/cssanimplugin.js'}" type="text/javascript" ></script> -->
         #{get 'moreScripts' /}
         
         <script>
+        
+        
+        
         $(document).ready(function() 
         {
-        	setTimeout("$('body').removeClass('loading');", 2000);
+        	setTimeout("$('body').removeClass('loading');", 200);
+        	
+        	 $('.number-1').click(function() { focus(1); } );
+        	 $('.number-2').click(function() { focus(2); } );
+        	 
+        	 if (navigator.userAgent.indexOf('iPhone') != -1) {
+        		      addEventListener("load", function() {
+        	        setTimeout(hideURLbar, 0);
+        	        }, false);
+        	        }
+
+        	        function hideURLbar() {
+        	        window.scrollTo(0, 1);
+        	        }
+        	        
         });
         
-        function voteFor(object_id)
+        function focus(nr)
         {
+          var focus1name = '.number-1 > img';
+          var focus2name = '.number-2 > img';
+         
+          $('.vote-button').css('display','none');
+          
+          window.currentSelection = nr;
+          
+          var focus1 = false;
+          var focus2 = false;
+          
+          if (nr==1 && !$(focus1name).hasClass('focused')) focus1=true;
+          if (nr==2 && !$(focus2name).hasClass('focused')) focus2=true;
+          
+          if (focus1)
+        	{
+        	  $(focus1name).addClass('focused');
+              
+        	  $(focus1name).css('zIndex', 100);
+        	  $(focus1name).animate( { width:'80%', xtop:'100px', left:'50%', marginLeft:'-45%' }, function(){$('.vote-button').css('display','block')} );
+            
+        	} else
+        	{
+        		$(focus1name).removeClass('focused');
+                
+        		
+        		$(focus1name).animate( { width:'48%', left:'50%', marginLeft:'-49%', zIndex:'10' } );
+        	}
+          
+          if (focus2)
+        	{
+        	  $(focus2name).addClass('focused');
+              
+        	  $(focus2name).css('zIndex', 100);
+        	  $(focus2name).animate( { width:'80%', xtop:'100px', left:'50%', marginLeft:'-35%' }, function(){$('.vote-button').css('display','block')} );
+        	}
+          else
+        	{
+        	  $(focus2name).removeClass('focused');
+        	  $(focus2name).animate( { width:'48%', left:'50%', marginLeft:'1%', zIndex:'10' } );
+        	}
+          
+        }
+        	 
+        function vote()
+        {
+        	var nr = window.currentSelection;
+        	
+        	if (nr!=1 && nr!=2) return;
+        	var object_id = object_ids[nr-1];
+        	
         	//$(".main-area").html('');
         	//$(".user-score").html('...');
         	$('body').addClass('loading');
         	
-        	result = $.getJSON('/api/vote?object_id=' + object_id,
-        			function(data){ 
-        		$('.main-area').addClass('loading');
-                	    
-                alert(data.message);
-        	  	   window.location.reload();
-        			});
-        	
-        	//console.log(result.responseText);
-        	//result.
-        	//var obj = eval(result.responseText);
-        	
-        	//console.log(obj);
-        	
-        	//alert(obj.result);
-        	//if (obj.result || !obj.result)
-        	//{
-        	 //alert(obj.message);
-        	
-        	//}
-        	
+        	window.location='/vote?object_id=' + object_id;
         }
         </script>
     </head>

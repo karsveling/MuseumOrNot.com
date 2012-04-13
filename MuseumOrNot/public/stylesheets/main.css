@@ -1,13 +1,19 @@
 body {
   margin:0px;
   padding:0px;
-  background:#00B1EB;
-  
+  background:#404040; /#00B1EB;
+  font-family:Averia Gruesa Libre;
 }
 
 * { 
   box-sizing:border-box;
-  font:verdana;
+  
+}
+
+button {
+    font-family:Averia Gruesa Libre;
+  font-size:30px;
+  font-weight:bold;
 }
 
 .homescreen {
@@ -30,7 +36,6 @@ body {
 
 .home-button {
   font-size:18px;
-  font-family:verdana,arial;
   font-weight:bold;
   padding-top:10px;
   width:278px;
@@ -52,6 +57,8 @@ body {
 .topbar {
   position:absolute;
   width:100%;
+  height:160px;
+  background: #00B1EB;
 }
 
 .topbar img.background {
@@ -97,13 +104,24 @@ body {
 }
 
 .user-score {
-  text-align:center;
   color:yellow;
   position:absolute;;
   height:30px;
   width:60px;
   left:50%;
   margin-left:-100px;
+  top:80px;
+  
+  font-size:40px;
+}
+
+.user-score-label {
+  color:yellow;
+  position:absolute;;
+  height:30px;
+  width:150px;
+  left:50%;
+  margin-left:-60px;
   top:80px;
   
   font-size:20px;
@@ -116,10 +134,12 @@ body {
   height:1024px;
 }
 
-.main-area {
+.xmain-area {
+  z-index:1;
   position:absolute;
-  top:160px;;
+  top:0px;
   width:100%;  
+  height:100%;
   overflow-x:scroll;
   overflow-y:none;
   background:yellow;
@@ -139,29 +159,109 @@ body {
   height:100%;
   opacity:0.8;
 filter:alpha(opacity=80);
+z-index:10000;
 }
 
 .loading .loader { display:block; }
 
 .objects-container {
   position:relative;
-  left:50%;
-  width:2000px;
+  width:100%;
+  height:100%;
   text-align:center;
 }
 
-.artobject {
-  float:left;
-  display:inline;
-  border:solid 2px #B0B0B0;
-  text-align:center;
-  margin:5px;
+.artobject img {
+  width:48%;
+  position:absolute;
+  top:180px;
+  left:50%;
 }
 
 .number-1 img {
-  height:300px;
+  margin-left:-49%;
+  
 }
 
 .number-2 img {
-  height:300px;
+  margin-left:1%;
+  ;
+}
+
+.vote-button {
+  display:none;
+  left:50%;
+  margin-left:-269px;
+  font-size:30px;
+  font-weight:bold;
+  color:#000000;
+  border:0px;
+  bottom:20px;
+  height:66px;
+  width:538px;;
+  position:absolute;
+  z-index:1000;
+  background:url(/public/images/gelebutton1.png);
+}
+
+.vote-button:active,
+.next-button:active {
+  background:url(/public/images/gelebutton1-down.png);
+  bottom:18px;
+}
+
+
+.rightwrong-icon {
+  position:absolute;
+  left:50%;
+  margin-left:-230px;
+  top:200px;
+  width:50px;
+  height:50px;
+}
+
+.result-message {
+  font-size:30px;
+  position:absolute;
+  left:50%;
+  top:190px;
+  margin-left:-160px;
+  width:400px;
+  height:180px;
+  color:yellow;
+}
+
+.next-button {
+  left:50%;
+  margin-left:-269px;
+  border:0px;
+  top:300px;
+  height:66px;
+  width:538px;;
+  position:absolute;
+  z-index:1000;
+  background:url(/public/images/gelebutton1.png);
+}
+
+.result-image {
+  position:absolute;
+  left:50%;
+  margin-left:-260px;
+  top:400px;
+}
+
+.result-image img {
+  width:240px;
+}
+
+.explanation {
+  color:yellow;
+  position:absolute;
+  left:50%;
+  top:400px;
+  margin-left:-10px;
+  width:400px;
+  height:200px;
+  font-size:30px;
+  
 }

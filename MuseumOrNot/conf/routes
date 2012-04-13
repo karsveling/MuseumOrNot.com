@@ -5,6 +5,7 @@
 # Home page
 *       /                                       Application.index
 *       /play                                   Application.play
+*       /vote                                   Application.vote
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -50,6 +50,47 @@ public class Application extends AuthenticatedBaseController {
       render(artobject1, artobject2);
     }
     
+    public static void vote(long object_id)
+    {
+      User user = getCurrentUser();
+      
+      if (user==null) redirect("/");
+      
+      ArtObject obj = ArtObject.findById(object_id);
+      
+      if (obj==null)
+      {
+        // not found!
+        notFound();
+      }
+      
+      String message = "";
+      String explanation = "";
+      boolean correct = false;
+          
+      if (obj.in_a_museum)
+      {
+        // correct!
+        user.processCorrect();
+        correct=true;
+        message = "Oh yeah!<br/>Thats right!";
+        explanation = "This is <u>"+obj.title+"</u> from <u>"+obj.institution+"</u>";
+      }
+      else
+      {
+        user.processWrong();
+        correct=false;
+        message = "Oh,<br/>It's not in a museum (yet)";
+        explanation = "This is <u>"+obj.title+"</u> from <u>"+obj.institution+"</u>";
+      }
+      
+      user.save();
+      
+      String result = correct?"right":"wrong";
+     
+      render(result, message, obj, explanation);
+      
+    }
     private static void makeSureTestDataIsThere()
     {
       ArtObject obj = ArtObject.findById(1L);
