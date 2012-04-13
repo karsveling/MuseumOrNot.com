@@ -2,11 +2,13 @@
 #{set title:'Home' /}
 
 <div class="homescreen">
+  <img src="/public/images/museum_or_not_text.png" class="home-image">
+  </img>
   #{if !user}
-    <a class="btn-auth btn-google large" href="${googleLoginUrl}" style="position:absolute; margin-left:-110px; left:50%; top:20px;">Sign in with <b>Google</b></a>
+    <a class="home-button" href="${googleLoginUrl}">Sign in with <b>Google</b></a>
   #{/if}
   
   #{if user}
-    <a href="/play">GET STARTED ${user.fullname}!</a>
+    <a class="home-button" href="/play">Play!</a>
   #{/if}
 </div>

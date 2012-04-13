@@ -4,7 +4,7 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta charset="${_response_encoding}">
-        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+        <meta name="viewport" content="width=device-width; initial-scale=0.5; maximum-scale=0.5; user-scalable=0;" />
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/auth-buttons.css'}">
         #{get 'moreStyles' /}
@@ -13,15 +13,23 @@
         #{get 'moreScripts' /}
         
         <script>
+        $(document).ready(function() 
+        {
+        	setTimeout("$('body').removeClass('loading');", 2000);
+        });
+        
         function voteFor(object_id)
         {
-        	$('main-area').addClass('loading');
-        	result = $.getJSON('/api/vote?object_id=' + object_id, { async:false },
+        	//$(".main-area").html('');
+        	//$(".user-score").html('...');
+        	$('body').addClass('loading');
+        	
+        	result = $.getJSON('/api/vote?object_id=' + object_id,
         			function(data){ 
-        		   console.log(data); 
-        		   alert(data.message);
-        		   $(".main-area").html('');
-        		   window.location.reload();
+        		$('.main-area').addClass('loading');
+                	    
+                alert(data.message);
+        	  	   window.location.reload();
         			});
         	
         	//console.log(result.responseText);
@@ -40,7 +48,8 @@
         }
         </script>
     </head>
-    <body>
+    <body class="loading">
         #{doLayout /}
+        <img src="/public/images/ajax-loader.gif" class="loader" />
     </body>
 </html>

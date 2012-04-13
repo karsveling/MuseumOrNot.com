@@ -2,17 +2,20 @@
 #{set title:'Home' /}
 #{topbar user:user /}
 
+<div class="content-area">
 
-<div class="main-area">
-  <div class="objects-container" style="width:${artobject1.width + artobject2.width + 10}">
-    <div class="artobject number-1">
-      <img src="${artobject1?.image_url}"  /><br/>
-      
-      <button onclick="voteFor(${artobject1.id})">This should be in a Museum!</button>
-    </div>
-    <div class="artobject number-2">
-      <img src="${artobject2?.image_url}"/><br/>
-         <button onclick="voteFor(${artobject2.id})">This should be in a Museum!</button>
+  <div class="main-area">
+    <div class="objects-container" style="width:${artobject1.width + artobject2.width + 10}">
+      <div class="artobject number-1">
+        <img src="${artobject1?.image_url}"  /><br/>
+        
+        <button onclick="voteFor(${artobject1.id})">This should be in a Museum!</button>
+      </div>
+      <div class="artobject number-2">
+        <img src="${artobject2?.image_url}"/><br/>
+           <button onclick="voteFor(${artobject2.id})">This should be in a Museum!</button>
+      </div>
     </div>
   </div>
+
 </div>
