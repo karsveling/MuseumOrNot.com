@@ -104,6 +104,7 @@ button {
 }
 
 .user-score {
+  
   color:yellow;
   position:absolute;;
   height:30px;
@@ -121,7 +122,7 @@ button {
   height:30px;
   width:150px;
   left:50%;
-  margin-left:-60px;
+  margin-left:-40px;
   top:80px;
   
   font-size:20px;
@@ -184,6 +185,9 @@ z-index:10000;
 }
 
 .number-2 img {
+  bottom:20px;
+  top:440px;
+  margin-top:-1%;
   margin-left:1%;
   ;
 }
