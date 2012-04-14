@@ -38,6 +38,13 @@ public class ArtObject extends EnhancedModel
   
   public String institution;
   
+  public int num_votes;
+  public int museum_votes;
+  public int non_museum_votes;
+  
+  public int right_votes;
+  public int wrong_votes;
+  
   public ArtObject(String title, String description, String url, String image_url, int width, int height, boolean in_a_museum, String institution)
   {
     this.title = title;
@@ -98,6 +105,15 @@ public class ArtObject extends EnhancedModel
     Settings.put(TOTAL_MUSEUM_OBJECTS, museum);
     Settings.put(TOTAL_NON_MUSEUM_OBJECTS, non_museum);
     
+  }
+
+  public void registerVote(boolean in_a_museum) {
+    this.num_votes = this.num_votes + 1;
+    if (in_a_museum) this.museum_votes = this.museum_votes + 1;
+      else this.non_museum_votes = this.non_museum_votes + 1; 
+    
+    if ((in_a_museum && this.in_a_museum) || (!in_a_museum && !this.in_a_museum)) this.right_votes = this.right_votes + 1;
+      else this.wrong_votes = this.wrong_votes + 1;
   }
 
 }

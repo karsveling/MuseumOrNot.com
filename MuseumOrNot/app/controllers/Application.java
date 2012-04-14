@@ -4,11 +4,14 @@ import play.*;
 import play.mvc.*;
 import siena.Query;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskQueuePb.TaskQueueService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.stream.JsonWriter;
 
 import models.*;
 
@@ -50,15 +53,16 @@ public class Application extends AuthenticatedBaseController {
       render(artobject1, artobject2);
     }
     
-    public static void vote(long object_id)
+    public static void vote(long object_id, long other_object_id) throws IOException
     {
       User user = getCurrentUser();
       
       if (user==null) redirect("/");
       
       ArtObject obj = ArtObject.findById(object_id);
+      ArtObject obj2 = ArtObject.findById(other_object_id);
       
-      if (obj==null)
+      if (obj==null || obj2==null)
       {
         // not found!
         notFound();
@@ -69,6 +73,9 @@ public class Application extends AuthenticatedBaseController {
       String level_upgrade = null;
       boolean correct = false;
           
+      obj.registerVote(true);
+      obj2.registerVote(false);
+      
       if (obj.in_a_museum)
       {
         // correct!
@@ -98,7 +105,21 @@ public class Application extends AuthenticatedBaseController {
       
       String result = correct?"right":"wrong";
      
-      render(result, message, obj, explanation, level_upgrade, old_level);
+      //render(result, message, obj, explanation, level_upgrade, old_level);
+      
+      response.contentType = "text/json";
+      JsonWriter wr = new JsonWriter(new PrintWriter(response.out));
+      
+      wr.beginObject();
+      wr.name("correct").value(correct);
+      wr.name("message").value(message);
+      wr.name("explanation").value(explanation);
+      wr.name("reputation").value(user.reputation_label);
+      wr.name("new_level").value(!level_upgrade.equals(old_level));
+      wr.name("img").value(obj.image_url);
+      wr.name("points_to_next_level").value(user.pointsToNextLevel());
+      wr.endObject();
+      wr.flush();
       
     }
     private static void makeSureTestDataIsThere()

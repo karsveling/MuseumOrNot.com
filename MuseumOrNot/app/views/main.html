@@ -23,11 +23,6 @@
         
         $(document).ready(function() 
         {
-        	$('.rightwrong-icon').animate({left:'50%'});
-        	$('.result-message').animate({left:'50%'});
-        	setTimeout("$('.user-score').css('display','block'); $('.user-score').animate({fontSize:'40px', left:'50%'});", 1500);
-        	
-        	setTimeout("$('.next-button').animate({opacity:1});", 2500);
         	
         	//setTimeout("$('body').removeClass('loading');", 200);
         	
@@ -98,12 +93,69 @@
         	
         	if (nr!=1 && nr!=2) return;
         	var object_id = object_ids[nr-1];
+        	var other_object_id = object_ids[2-nr];
         	
-        	//$(".main-area").html('');
-        	//$(".user-score").html('...');
         	$('body').addClass('loading');
         	
-        	window.location='/vote?object_id=' + object_id;
+        	$.getJSON('/vote?object_id=' + object_id + '&other_object_id=' + other_object_id, function(res) {
+        		
+        		// options
+        		//
+        		// new reputation?
+        	  // new score
+        	  // message
+        	  // title
+        	  // image
+        	  // 
+        	  
+        	  $('body').addClass('voted');
+        		$('body').removeClass('loading');
+        		
+        		$('.vote-button').css('display','none');
+        		
+        		$((res.correct?'.right':'.wrong') + '-icon').css('display','block');
+        		$((!res.correct?'.right':'.wrong') + '-icon').css('display','none');
+                
+        		
+        		console.log(res);
+        	  // show new screen
+        	  // 
+        	  $('.user-score').text(res.points_to_next_level);
+        	  $('.user-reputation').text(res.reputation);
+        	  $('.result-message').html(res.message);
+        	  $('.explanation').html(res.explanation);
+        	  $('.result-image > img').attr('src', res.img);
+              
+        	  if (res.new_level)
+        		{
+        		  // new level! whophoo!
+        		  $('congrats-label').text(res.reputation);
+        		  $('congrats').css('display', 'block');
+        		  $('congrats').css('top', '1500px');
+                  
+        		  $('congrats').animate( { top:'200px' }, function() {setTimeout("animate( { top:'-1000px' }", 5000);} );
+        		  
+        		}
+        	 
+        	  $('.rightwrong-icon').css('left','-10%');
+        	  $('.rightwrong-icon').animate({left:'50%'});
+        	  $('.result-message').css('left', '100%');
+        	  
+            $('.result-message').animate({left:'50%'});
+            
+            $('.user-score').css('display', 'none').css('fontSize','400px');
+            setTimeout("$('.user-score').css('display','block'); $('.user-score').animate({fontSize:'40px', left:'50%'});", 1500);
+              
+              setTimeout("$('.next-button').animate({opacity:1});", 2500);
+            
+        		
+        		
+        	});
+        	//$(".main-area").html('');
+        	//$(".user-score").html('...');
+        	
+        	
+        	//window.location='/vote?object_id=' + object_id;
         }
         </script>
     </head>

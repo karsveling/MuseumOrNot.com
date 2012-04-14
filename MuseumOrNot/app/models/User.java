@@ -299,7 +299,7 @@ public class User extends EnhancedModel {
  
 
   public void processCorrect() {
-    score = score + 2;
+    score = score + 1;
     num_good = num_good + 1;
     num_tries = num_tries + 1;
     
