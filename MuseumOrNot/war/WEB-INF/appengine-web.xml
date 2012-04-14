@@ -2,5 +2,18 @@
 	<application>museumornot</application>
 	<version>1</version>
 	<threadsafe>true</threadsafe>
+  
+   <static-files>
+    <include path="/public/**.js" expiration="1h" />
+    <include path="/public/**.png" expiration="1h" />
+    <include path="/public/**.gif" expiration="1h" />
+    <include path="/public/**.jpg" expiration="1h" />
+    <include path="/public/**.css" expiration="1h" />
+    <include path="/public/**.html" expiration="1h" />
+    <include path="/public/**.woff" expiration="1h" />
+    <include path="/public/**.ttf" expiration="1h" />
+    
+  </static-files>
+  
 </appengine-web-app>
 
