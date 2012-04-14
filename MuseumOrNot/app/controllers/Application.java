@@ -66,6 +66,7 @@ public class Application extends AuthenticatedBaseController {
       
       String message = "";
       String explanation = "";
+      String level_upgrade = null;
       boolean correct = false;
           
       if (obj.in_a_museum)
@@ -75,6 +76,8 @@ public class Application extends AuthenticatedBaseController {
         correct=true;
         message = "Oh yeah!<br/>Thats right!";
         explanation = "This is <u>"+obj.title+"</u> from <u>"+obj.institution+"</u>";
+        
+        level_upgrade = user.newLevelShouldBe();
       }
       else
       {
@@ -82,13 +85,20 @@ public class Application extends AuthenticatedBaseController {
         correct=false;
         message = "Oh, it's not<br/>in a museum (yet)";
         explanation = "This is <u>"+obj.title+"</u> from <u>"+obj.institution+"</u>";
+        
+        level_upgrade = user.newLevelShouldBe();
       }
       
+      Logger.info("New level of user should be:" + level_upgrade);
+     
+      String old_level = user.reputation_label;
+      user.reputation_label = level_upgrade;
+     
       user.save();
       
       String result = correct?"right":"wrong";
      
-      render(result, message, obj, explanation);
+      render(result, message, obj, explanation, level_upgrade, old_level);
       
     }
     private static void makeSureTestDataIsThere()

@@ -122,7 +122,7 @@ button {
   height:30px;
   width:150px;
   left:50%;
-  margin-left:-40px;
+  margin-left:-30px;
   top:80px;
   
   font-size:20px;
@@ -269,4 +269,30 @@ z-index:10000;
   height:200px;
   font-size:30px;
   
+}
+
+
+.congrats {
+  display:none;
+  position:absolute;
+  left:50%;
+  top:200px;
+  margin-left:-304px;
+  width:609px;
+  height:628px;
+}
+
+.congrats-label {
+ 
+  text-align:center;
+  z-index:100001;
+  position:absolute;
+  left:50%;
+  top:290px;
+  font-size:50px;
+  color:#3030FF;
+  xborder:solid 1px red;
+  margin-left:-180px;
+  width:330px;
+  height:200px;
 }

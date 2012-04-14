@@ -318,23 +318,38 @@ public class User extends EnhancedModel {
   {
     Hashtable<String,Integer> t = getLevels();
     String foundLevel = "Intern";
-    int foundScore = 0;
+    int foundScore = 100000;
     for (String name:t.keySet())
     {
       int c = t.get(name);
-      if (c>this.score)
+      if (c>this.score && c<foundScore)
       {
         // too far ahead
-        this.reputation_label = foundLevel;
-        return (c - this.score);
+        foundScore = c;
+        foundLevel = name;
       }
-      
-      foundLevel = name;
-      foundScore = c;
-    
     }
-    return 0;
+    return foundScore - this.score;
   }
+  
+  public String newLevelShouldBe()
+  {
+    Hashtable<String,Integer> t = getLevels();
+    String foundLevel = "Intern";
+    int foundScore = 0;
+    for (String name:t.keySet())
+    {
+      Logger.info("checking level:"+ name + ", found:"+ foundLevel + ", score:"+ foundScore);
+      int c = t.get(name);
+      if (c<this.score && c>foundScore)
+      {
+        // too far ahead
+        foundScore = c;
+        foundLevel = name;
+      }
+    }
+    return foundLevel;
+ }
   
   public static Hashtable<String, Integer> getLevels()
   {

@@ -107,8 +107,13 @@
         }
         </script>
     </head>
-    <body xclass="loading">
+    <body>
         #{doLayout /}
         <img src="/public/images/ajax-loader.gif" class="loader" />
+        
+        <div class="congrats">          
+          <img src="/public/images/nextlevel-zonder.png" class="" />
+          <div class="congrats-label">${user?.reputation_label}</div>
+        </div>
     </body>
 </html>
