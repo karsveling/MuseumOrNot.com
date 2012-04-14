@@ -114,6 +114,8 @@ public class ArtObject extends EnhancedModel
     
     if ((in_a_museum && this.in_a_museum) || (!in_a_museum && !this.in_a_museum)) this.right_votes = this.right_votes + 1;
       else this.wrong_votes = this.wrong_votes + 1;
+    
+    save();
   }
 
 }

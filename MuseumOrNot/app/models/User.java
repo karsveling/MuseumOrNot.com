@@ -341,7 +341,7 @@ public class User extends EnhancedModel {
     {
       Logger.info("checking level:"+ name + ", found:"+ foundLevel + ", score:"+ foundScore);
       int c = t.get(name);
-      if (c<this.score && c>foundScore)
+      if (c<=this.score && c>foundScore)
       {
         // too far ahead
         foundScore = c;

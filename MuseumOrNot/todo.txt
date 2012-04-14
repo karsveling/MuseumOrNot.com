@@ -1,9 +1,11 @@
-* javascript ajax instead of reload
+DONE * javascript ajax instead of reload
 
 * protection of hacker vote with encrypted value
 
-* store total counts per object in db
+DONE * store total counts per object in db
 
 * get better objects in database
 
 * user avatar from google+?
+
+* nice graph with most graded objects

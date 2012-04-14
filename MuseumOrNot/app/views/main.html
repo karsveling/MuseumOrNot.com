@@ -95,7 +95,7 @@
         	var object_id = object_ids[nr-1];
         	var other_object_id = object_ids[2-nr];
         	
-        	$('body').addClass('loading');
+        	$('.vote-button').css('display','none');
         	
         	$.getJSON('/vote?object_id=' + object_id + '&other_object_id=' + other_object_id, function(res) {
         		
@@ -129,11 +129,11 @@
         	  if (res.new_level)
         		{
         		  // new level! whophoo!
-        		  $('congrats-label').text(res.reputation);
-        		  $('congrats').css('display', 'block');
-        		  $('congrats').css('top', '1500px');
+        		  $('.congrats-label').text(res.reputation);
+        		  $('.congrats').css('display', 'block');
+        		  $('.congrats').css('top', '1500px');
                   
-        		  $('congrats').animate( { top:'200px' }, function() {setTimeout("animate( { top:'-1000px' }", 5000);} );
+        		  $('.congrats').animate( { top:'200px' }, function() {setTimeout("$('.congrats').animate( { top:'-1000px' });", 5000);} );
         		  
         		}
         	 
@@ -160,6 +160,12 @@
         </script>
     </head>
     <body>
+    
+        <a href="http://q42.com" alt="Q42" target="_blank" >
+          <img src="/public/images/q42.png" class="q42" />
+        </a>
+        
+        
         #{doLayout /}
         <img src="/public/images/ajax-loader.gif" class="loader" />
         
