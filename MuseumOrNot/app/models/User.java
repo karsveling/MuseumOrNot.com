@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
@@ -90,6 +91,7 @@ public class User extends EnhancedModel {
 	// 
 	
 	public int reputation;
+	public String reputation_label;
 	public int score;
 	
 	public int num_tries;
@@ -112,6 +114,7 @@ public class User extends EnhancedModel {
 	  this.invited_date = new Date();
 	  this.authentication_type = AUTHENTICATION_TYPE_UNDEFINED;
 	  this.has_no_password = true;
+	  this.reputation_label = "Intern";
 	}
 	
 	public User(String username, String fullname, String email) {
@@ -124,6 +127,7 @@ public class User extends EnhancedModel {
 		this.account_status = ACCOUNT_STATUS_ACTIVE;
 		
 		this.authentication_type = AUTHENTICATION_TYPE_NORMAL;
+		this.reputation_label = "Intern";
 	}
 
 	public User(com.google.appengine.api.users.User googleUser,
@@ -148,6 +152,8 @@ public class User extends EnhancedModel {
 		
 		// note: has_no_password was set to true by "setPassword", but we need to set it to False, because we're googleIO user
 		this.has_no_password = true;
+		
+	  this.reputation_label = "Intern";
 		this.save();
 	}
 	
@@ -290,17 +296,7 @@ public class User extends EnhancedModel {
    return false;
   }
 
-  public String getReputationLabel()
-  {
-    switch (reputation)
-    {
-    case 0: return "Intern";
-    
-    case 100: return "Demi God Curator";
-    case 101: return "Museum Director";
-    default: return "In-between-jobs";
-    }
-  }
+ 
 
   public void processCorrect() {
     score = score + 2;
@@ -315,6 +311,54 @@ public class User extends EnhancedModel {
     num_wrong = num_wrong + 1;
     num_tries = num_tries + 1;
     
+    
+  }
+  
+  public int pointsToNextLevel()
+  {
+    Hashtable<String,Integer> t = getLevels();
+    String foundLevel = "Intern";
+    int foundScore = 0;
+    for (String name:t.keySet())
+    {
+      int c = t.get(name);
+      if (c>this.score)
+      {
+        // too far ahead
+        this.reputation_label = foundLevel;
+        return (c - this.score);
+      }
+      
+      foundLevel = name;
+      foundScore = c;
+    
+    }
+    return 0;
+  }
+  
+  public static Hashtable<String, Integer> getLevels()
+  {
+    Hashtable<String,Integer> t = new Hashtable();
+    t.put("Intern", 0);
+    t.put("Art Handler", 3);
+    t.put("Assistant to the Trainee", 7);
+    t.put("Trainee", 20);
+    t.put("Attendant", 40);
+    t.put("Social Media Officer", 50);
+    t.put("Researcher", 75);
+    t.put("Collection Manager", 100);
+    t.put("Registrar", 110);
+    t.put("Junior Curator", 125);
+    t.put("Curator", 150);
+    t.put("Senior Curator", 200);
+    t.put("Head of Spin", 235);
+    t.put("King of Spin", 275);
+    t.put("Demi God Curator", 350);
+    t.put("Museum Director", 500);
+    t.put("Spinny Bar Trustee", 2000);
+    t.put("David Bearman :)", 5000);
+    
+    return t;
     
   }
 

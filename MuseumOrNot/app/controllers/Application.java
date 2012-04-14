@@ -80,7 +80,7 @@ public class Application extends AuthenticatedBaseController {
       {
         user.processWrong();
         correct=false;
-        message = "Oh,<br/>It's not in a museum (yet)";
+        message = "Oh, it's not<br/>in a museum (yet)";
         explanation = "This is <u>"+obj.title+"</u> from <u>"+obj.institution+"</u>";
       }
       

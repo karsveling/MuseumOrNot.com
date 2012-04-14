@@ -100,7 +100,7 @@ button {
   margin-left:-100px;
   top:35px;
   font-size:30px;
-  font-style:italic;
+
 }
 
 .user-score {
@@ -217,19 +217,19 @@ z-index:10000;
 
 .rightwrong-icon {
   position:absolute;
-  left:50%;
+  left:0%;
   margin-left:-230px;
-  top:200px;
-  width:50px;
-  height:50px;
+  top:190px;
+  width:90px;
+  height:90px;
 }
 
 .result-message {
-  font-size:30px;
+  font-size:40px;
   position:absolute;
-  left:50%;
+  left:100%;
   top:190px;
-  margin-left:-160px;
+  margin-left:-100px;
   width:400px;
   height:180px;
   color:yellow;
@@ -245,17 +245,18 @@ z-index:10000;
   position:absolute;
   z-index:1000;
   background:url(/public/images/gelebutton1.png);
+  opacity:0;
 }
 
 .result-image {
   position:absolute;
   left:50%;
   margin-left:-260px;
-  top:400px;
+  top:500px;
 }
 
 .result-image img {
-  width:240px;
+  width:520px;
 }
 
 .explanation {
@@ -263,8 +264,8 @@ z-index:10000;
   position:absolute;
   left:50%;
   top:400px;
-  margin-left:-10px;
-  width:400px;
+  margin-left:-260px;
+  width:520px;
   height:200px;
   font-size:30px;
   

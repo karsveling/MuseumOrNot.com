@@ -23,7 +23,13 @@
         
         $(document).ready(function() 
         {
-        	setTimeout("$('body').removeClass('loading');", 200);
+        	$('.rightwrong-icon').animate({left:'50%'});
+        	$('.result-message').animate({left:'50%'});
+        	setTimeout("$('.user-score').css('display','block'); $('.user-score').animate({fontSize:'40px', left:'50%'});", 1500);
+        	
+        	setTimeout("$('.next-button').animate({opacity:1});", 2500);
+        	
+        	//setTimeout("$('body').removeClass('loading');", 200);
         	
         	 $('.number-1').click(function() { focus(1); } );
         	 $('.number-2').click(function() { focus(2); } );
@@ -38,6 +44,7 @@
         	        window.scrollTo(0, 1);
         	        }
         	        
+        	 
         });
         
         function focus(nr)
@@ -100,7 +107,7 @@
         }
         </script>
     </head>
-    <body class="loading">
+    <body xclass="loading">
         #{doLayout /}
         <img src="/public/images/ajax-loader.gif" class="loader" />
     </body>
